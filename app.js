@@ -74,7 +74,9 @@ window.paypal
           const transaction =
             orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
             orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
-          resultMessage(transaction);
+         resultMessage(
+            `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
+          );
           console.log(
             "Capture result",
             orderData,
@@ -121,13 +123,8 @@ window.paypal
 
 
 // Example function to show a result to the user. Your site's UI library can be used instead.
-function resultMessage(transaction) {
-
-  localStorage.setItem('transactionid', JSON.stringify(transaction.id));
-  localStorage.setItem('transactionstatus', JSON.stringify(transaction.status));
-
-  // Redirect to the next page after transaction completes
-  window.location.href = 'thankyou.html';
- 
+function resultMessage(message) {
+  const container = document.querySelector("#result-message");
+  container.innerHTML = message;
 }
 
