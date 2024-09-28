@@ -59,41 +59,29 @@
             width: 100%;
             max-width: 400px;
         }
+        #order-id {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
     <h1>Shopping Cart</h1>
 
-    <!-- Product List -->
-    <div id="products">
-        <h2>Products</h2>
-        <ul>
-            <li>
-                <h3>Item 1</h3>
-                <p>Price: $10</p>
-                <img src="https://via.placeholder.com/100x100.png?text=Item+1" alt="Item 1 Image">
-                <br>
-                <button onclick="addToCart('Item 1', 10, 'https://via.placeholder.com/100x100.png?text=Item+1')">Add to Cart</button>
-            </li>
-            <li>
-                <h3>Item 2</h3>
-                <p>Price: $20</p>
-                <img src="https://via.placeholder.com/100x100.png?text=Item+2" alt="Item 2 Image">
-                <br>
-                <button onclick="addToCart('Item 2', 20, 'https://via.placeholder.com/100x100.png?text=Item+2')">Add to Cart</button>
-            </li>
-        </ul>
-    </div>
+  
 
     <!-- Shopping Cart -->
     <div id="cart" class="cart">
         <h2>Your Cart</h2>
+        <div id="order-id" style="display: none;">Order ID: <span id="order-id-number"></span></div>
         <table>
             <thead>
                 <tr>
                     <th>Item</th>
-                    <th>Image</th>
+                   <th>ItemNumber</th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Total</th>
@@ -101,13 +89,17 @@
             </thead>
             <tbody id="cart-items">
                 <tr>
-                    <td colspan="5">Your cart is empty</td>
+                    <th>Hoodie</th>
+                    <th>555</th>
+                    <th>1</th>
+                    <th>30</th>
+                    <th>35</th>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="4" class="total">Grand Total:</td>
-                    <td id="cart-total">$0</td>
+                    <td id="cart-total">$35</td>
                 </tr>
             </tfoot>
         </table>

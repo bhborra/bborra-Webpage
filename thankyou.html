@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <script>
+        function displayMessage() {
+           const transactionid = localStorage.getItem('transactionid');
+           const transactionstatus = localStorage.getItem('transactionstatus');
+
+            document.getElementById('transactionid').textContent = transactionid
+            document.getElementById('transactionstatus').textContent = transactionstatus;
+
+        }
+        window.onload = displayMessage;
+    </script>
+</head>
+<body>
+    <h1>Transaction Details</h1>
+    <p id="transactionid">Loading...</p>
+    <p id="transactionstatus">Loading...</p>
+   
+    
+</body>
+</html>

@@ -17,8 +17,9 @@ window.paypal
           body: JSON.stringify({
             cart: [
               {
-                id: "YOUR_PRODUCT_ID",
-                quantity: "YOUR_PRODUCT_QUANTITY",
+                id: "ORD-123",
+                quantity: "1",
+                price: "35"
               },
             ],
           }),
@@ -73,9 +74,7 @@ window.paypal
           const transaction =
             orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
             orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
-          resultMessage(
-            `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
-          );
+          resultMessage(transaction);
           console.log(
             "Capture result",
             orderData,
@@ -91,94 +90,8 @@ window.paypal
     },
   })
   .render("#paypal-button-container");
-  //let cart = [];
 
-        function addToCart(item, price, image) {
-          let cart = [];
-            const existingItem = cart.find(product => product.item === item);
-
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ item, price, quantity: 1, image });
-            }
-            updateCart();
-        }
-
-        function updateCart() {
-          let cart = [];
-            const cartItemsElement = document.getElementById('cart-items');
-            const cartTotalElement = document.getElementById('cart-total');
-
-            // Clear cart items before re-rendering
-            cartItemsElement.innerHTML = '';
-
-            let grandTotal = 0;
-
-            if (cart.length === 0) {
-                cartItemsElement.innerHTML = '<tr><td colspan="5">Your cart is empty</td></tr>';
-            } else {
-                cart.forEach((product, index) => {
-                    const total = product.price * product.quantity;
-                    grandTotal += total;
-
-                    cartItemsElement.innerHTML += `
-                        <tr>
-                            <td>${product.item}</td>
-                            <td><img src="${product.image}" alt="${product.item} Image"></td>
-                            <td>${product.quantity}</td>
-                            <td>$${product.price}</td>
-                            <td>$${total}</td>
-                        </tr>
-                    `;
-                });
-            }
-
-            cartTotalElement.textContent = `$${grandTotal}`;
-        }
-        let cart = [];
-
-        function addToCart(item, price, image) {
-            const existingItem = cart.find(product => product.item === item);
-  
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ item, price, quantity: 1, image });
-            }
-            updateCart();
-        }
-  
-        function updateCart() {
-            const cartItemsElement = document.getElementById('cart-items');
-            const cartTotalElement = document.getElementById('cart-total');
-  
-            // Clear cart items before re-rendering
-            cartItemsElement.innerHTML = '';
-  
-            let grandTotal = 0;
-  
-            if (cart.length === 0) {
-                cartItemsElement.innerHTML = '<tr><td colspan="5">Your cart is empty</td></tr>';
-            } else {
-                cart.forEach((product, index) => {
-                    const total = product.price * product.quantity;
-                    grandTotal += total;
-  
-                    cartItemsElement.innerHTML += `
-                        <tr>
-                            <td>${product.item}</td>
-                            <td><img src="${product.image}" alt="${product.item} Image"></td>
-                            <td>${product.quantity}</td>
-                            <td>$${product.price}</td>
-                            <td>$${total}</td>
-                        </tr>
-                    `;
-                });
-            }
-  
-            cartTotalElement.textContent = `$${grandTotal}`;
-        }
+       
         function submitBuyerInfo() {
           const firstname = document.getElementById('buyer-firstname').value;
           const lastname = document.getElementById('buyer-lastname').value;
@@ -208,7 +121,13 @@ window.paypal
 
 
 // Example function to show a result to the user. Your site's UI library can be used instead.
-function resultMessage(message) {
-  const container = document.querySelector("#result-message");
-  container.innerHTML = message;
+function resultMessage(transaction) {
+
+  localStorage.setItem('transactionid', JSON.stringify(transaction.id));
+  localStorage.setItem('transactionstatus', JSON.stringify(transaction.status));
+
+  // Redirect to the next page after transaction completes
+  window.location.href = 'thankyou.html';
+ 
 }
+
