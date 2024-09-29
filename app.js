@@ -7,7 +7,7 @@ window.paypal
     },
     async createOrder() {
       try {
-        const response = await fetch("/api/orders", {
+        const response = await fetch("https://api-m.sandbox.paypal.com/v2/checkout/orders", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
